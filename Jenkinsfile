@@ -9,7 +9,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
         DOCKERHUB_REPO = 'osamaaa1/shopping-cart'
         DOCKER_IMAGE_TAG = 'v1'
-        GITHUB_REPO = 'https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git'
+        GITHUB_REPO = 'https://github.com/Osama-Aamer/SoftwareProject2-W1.git'
     }
 
     stages {
