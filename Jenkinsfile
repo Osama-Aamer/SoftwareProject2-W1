@@ -11,14 +11,14 @@ pipeline {
         DOCKER_IMAGE_TAG = 'v1'
         GITHUB_REPO = 'https://github.com/Osama-Aamer/SoftwareProject2-W1.git'
     }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git '${GITHUB_REPO}'
-            }
-        }
-
+/*
+//    stages {
+//        stage('Checkout') {
+//            steps {
+//                git '${GITHUB_REPO}'
+//            }
+//        }
+*/
         stage('Build') {
             steps {
                 sh 'mvn clean package'
