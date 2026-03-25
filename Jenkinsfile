@@ -13,27 +13,21 @@ pipeline {
     }
 
     stages {
-/*       stage('Checkout') {
-//            steps {
-//                git '${GITHUB_REPO}'
-//            }
-//        }
-*/
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Generate JaCoCo Coverage Report') {
             steps {
-                sh 'mvn jacoco:report'
+                bat 'mvn jacoco:report'
             }
         }
 
