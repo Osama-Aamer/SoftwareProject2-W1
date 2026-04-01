@@ -1,0 +1,167 @@
+/* Root styling with gradient background */
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+    -fx-background-color: linear-gradient(to bottom, #f0f4f8, #d9e8f5);
+}
+
+/* Title Label */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0, 2, 2);
+}
+
+/* All Labels */
+.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: 500;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-font-size: 13px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-padding: 8px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box:focused {
+    -fx-border-color: #2980b9;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.5), 4, 0, 0, 0);
+}
+
+/* Spinner */
+.spinner {
+    -fx-font-size: 12px;
+}
+
+.spinner .text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-padding: 8px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+/* TextFields */
+.text-field {
+    -fx-font-size: 12px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #95a5a6;
+    -fx-border-width: 2;
+    -fx-padding: 8px;
+    -fx-text-alignment: left;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.text-field:focused {
+    -fx-border-color: #2ecc71;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(46, 204, 113, 0.4), 4, 0, 0, 0);
+}
+
+/* Buttons - Green */
+.button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #229954);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #1e8449, #186a3b);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 1, 1);
+}
+
+/* Total Cost Box with gradient */
+.total-box {
+    -fx-background-color: linear-gradient(to right, #3498db, #2980b9);
+    -fx-padding: 15px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-color: #2980b9;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 2, 2);
+}
+
+.total-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.total-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f1c40f;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 1, 1);
+}
+
+/* Separator */
+.separator {
+    -fx-padding: 8px 0px 8px 0px;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background: #ffffff;
+    -fx-padding: 0;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.scroll-pane:focused {
+    -fx-background: #ffffff;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #ffffff;
+}
+
+/* VBox */
+.vbox {
+    -fx-spacing: 10px;
+}
+
+.hbox {
+    -fx-spacing: 10px;
+}
+
+/* Border Pane */
+.border-pane {
+    -fx-background-color: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
+    -fx-padding: 15px;
+}
+
+/* Item Row Styling */
+.item-row {
+    -fx-background-color: linear-gradient(to right, #f8f9fa, #ffffff);
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 1, 1);
+}

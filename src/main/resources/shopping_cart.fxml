@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootVBox"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.ShoppingCartController"
+            stylesheets="@style.css">
+    <padding>
+        <Insets bottom="15" left="15" right="15" top="15" />
+    </padding>
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <!-- Title -->
+            <Label fx:id="lblTitle" text="Shopping Cart" styleClass="title-label"/>
+
+            <!-- Language Selection -->
+            <HBox spacing="10">
+                <Label fx:id="lblLanguage" text="Select Language:" />
+                <ComboBox fx:id="languageCombo" prefWidth="200" />
+            </HBox>
+
+            <!-- Number of Items -->
+            <HBox spacing="10">
+                <Label fx:id="lblItemCount" text="Enter number of items:" />
+                <Spinner fx:id="itemCountSpinner" prefWidth="100" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="itemsPanel" spacing="10">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <style>-fx-border-color: #000000; -fx-border-width: 1 0 0 0;</style>
+
+            <!-- Total Cost Display -->
+            <HBox spacing="20" styleClass="total-box">
+                <Label fx:id="lblTotal" text="Total Cost:" styleClass="total-label"/>
+                <Label fx:id="totalCostLabel" text="0.00" styleClass="total-value"/>
+            </HBox>
+
+            <!-- Buttons -->
+            <HBox spacing="10">
+                <Button fx:id="btnCalculate" text="Calculate" prefWidth="100" />
+                <Button fx:id="btnClear" text="Clear" prefWidth="100" />
+                <Button fx:id="btnExit" text="Exit" prefWidth="100" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>
+
