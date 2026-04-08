@@ -28,6 +28,13 @@
             <version>${javafx.version}</version>
         </dependency>
 
+        <!-- MariaDB JDBC Driver (compatible with MySQL) -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.3.3</version>
+        </dependency>
+
         <!-- JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
