@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar_projectKey>org.example:week1-swp2</sonar_projectKey>
         <javafx.version>21.0.1</javafx.version>
     </properties>
 
