@@ -1,17 +1,24 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+    // Create a logger instance
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
+    public static void main(String[] args) {
+        // Calculate the result
+        int result = addMe(12, 4);
+
+        // Conditionally log the result only if INFO level is enabled
+        if (logger.isLoggable(Level.INFO)) {
+            // Construct the log message only if INFO level logging is enabled
+            logger.info(String.format("Result of addMe(12, 4): %d", result));
         }
+    }
+
+    public static int addMe(int a, int b) {
+        return a + b;
     }
 }

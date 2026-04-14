@@ -4,10 +4,17 @@ import org.example.DatabaseConnection;
 
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class CartService {
 
+    private static final Logger logger = Logger.getLogger(CartService.class.getName());
+
+    private CartService() {
+        // Utility class — prevent instantiation
+    }
 
     public static void saveCart(int totalItems, double totalCost, String language,
                                 List<Double> prices, List<Integer> quantities) {
@@ -23,12 +30,13 @@ public class CartService {
                 ps.setString(3, language);
                 ps.executeUpdate();
 
-                ResultSet keys = ps.getGeneratedKeys();
-                if (!keys.next()) {
-                    System.err.println("CartService: failed to retrieve generated cart_record id.");
-                    return;
+                try (ResultSet keys = ps.getGeneratedKeys()) {
+                    if (!keys.next()) {
+                        logger.warning("CartService: failed to retrieve generated cart_record id.");
+                        return;
+                    }
+                    cartRecordId = keys.getLong(1);
                 }
-                cartRecordId = keys.getLong(1);
             }
 
             // Insert each cart item linked to the cart record
@@ -48,11 +56,12 @@ public class CartService {
                 ps.executeBatch();
             }
 
-            System.out.println("CartService: cart record #" + cartRecordId + " saved successfully.");
+            if (logger.isLoggable(Level.INFO)) {
+                logger.info(String.format("CartService: cart record #%d saved successfully.", cartRecordId));
+            }
 
         } catch (SQLException e) {
-            System.err.println("CartService: database error — " + e.getMessage());
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "CartService: database error", e);
         }
     }
 }

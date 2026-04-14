@@ -153,7 +153,7 @@ public class ShoppingCartController implements Initializable {
 
 
     private String convertFromArabicNumerals(String text) {
-        if (text == null) return text;
+        if (text == null || text.isEmpty()) return "";
 
         String[] arabicDigits = {"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"};
         String result = text;
@@ -245,9 +245,10 @@ public class ShoppingCartController implements Initializable {
 
         quantitySpinner.valueProperty().addListener((obs, old, newVal) -> {
             try {
-                String parseVal = convertFromArabicNumerals(priceField.getText());
+                String rawText = priceField.getText();
+                String parseVal = convertFromArabicNumerals(rawText);
                 double price = Double.parseDouble(parseVal.isEmpty() ? "0" : parseVal);
-                int quantity = newVal;
+                int quantity = newVal != null ? newVal : 1;
                 double itemTotal = price * quantity;
                 itemTotalLabel.setText(formatNumber(itemTotal));
                 updateTotalCost();
