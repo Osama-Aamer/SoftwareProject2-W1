@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.DatabaseConnection;
 import org.example.service.CartService;
 import org.junit.jupiter.api.*;
 

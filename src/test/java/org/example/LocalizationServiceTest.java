@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.DatabaseConnection;
 import org.example.service.LocalizationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
