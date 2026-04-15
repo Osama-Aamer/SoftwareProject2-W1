@@ -10,27 +10,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/**
- * LocalizationService loads UI strings from the database's localization_strings
- * table, falling back to the .properties ResourceBundle files when the DB is
- * unavailable or the locale has no rows.
- */
+
 public class LocalizationService {
 
-    /**
-     * Returns a map of key → localized string for the given locale.
-     *
-     * <p>Strategy:
-     * <ol>
-     *   <li>Query the {@code localization_strings} table in the DB.</li>
-     *   <li>If zero rows are returned or the DB is unreachable, fall back to
-     *       the {@code MessagesBundle} .properties files.</li>
-     *   <li>If those also fail, use hard-coded English defaults.</li>
-     * </ol>
-     *
-     * @param locale The desired locale.
-     * @return Map of localization key → value.
-     */
     public static Map<String, String> getLocalizedStrings(Locale locale) {
         // Build the language code used in the DB (e.g. "en_US", "ar_SA")
         String langCode = locale.getLanguage() + "_" + locale.getCountry();
