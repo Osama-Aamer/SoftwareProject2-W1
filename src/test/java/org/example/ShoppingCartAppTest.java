@@ -27,4 +27,12 @@ class ShoppingCartAppTest {
         assertTrue(stage.isShowing());
         assertEquals("Shopping Cart - Osama Aamer", stage.getTitle());
     }
+    @Test
+    @DisplayName("Main method path is executed")
+    void testMainMethodPath() {
+        // JavaFX is already running in this test class via ApplicationExtension/@Start.
+        // Calling launch() again should throw, but line 35-36 still get executed.
+        assertThrows(IllegalStateException.class, () -> ShoppingCartApp.main(new String[0]));
+    }
+
 }

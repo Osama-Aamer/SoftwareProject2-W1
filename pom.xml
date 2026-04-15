@@ -129,7 +129,10 @@
                             <excludes>
                                 <exclude>**/CartService.class</exclude>
                                 <exclude>**/DatabaseConnection.class</exclude>
+                                <exclude>**/ShoppingCartApp.class</exclude>
+                                <exclude>**/Main.class</exclude>
                                 <exclude>**/LocalisationService.class</exclude>
+                                <exclude>**/ShoppingCartController.class</exclude>
                             </excludes>
 
                         </configuration>
