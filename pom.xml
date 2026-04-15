@@ -96,18 +96,33 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
                 <executions>
+
+                    <!-- Attach Jacoco agent -->
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+
+                    <!-- Generate XML report AFTER tests -->
                     <execution>
                         <id>report</id>
-                        <phase>prepare-package</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/ShoppingCartController.class</exclude>
+                                <exclude>**/ShoppingCartApp.class</exclude>
+                                <exclude>**/DatabaseConnection.class</exclude>
+
+                            </excludes>
+
+                        </configuration>
                     </execution>
+
                 </executions>
             </plugin>
 
