@@ -138,4 +138,135 @@ class ShoppingCartControllerTest {
         Label totalCost = robot.lookup("#totalCostLabel").queryAs(Label.class);
         assertNotNull(totalCost.getText());
     }
+    @Test
+    @DisplayName("Language switch hits Finnish/Swedish/Japanese cases")
+    void testLanguageSwitchAllLtrCases(FxRobot robot) {
+        ComboBox<String> combo = robot.lookup("#languageCombo").queryComboBox();
+        BorderPane root = robot.lookup("#rootVBox").queryAs(BorderPane.class);
+
+        robot.interact(() -> combo.setValue("Finnish (fi_FI)"));
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(NodeOrientation.LEFT_TO_RIGHT, root.getNodeOrientation());
+
+        robot.interact(() -> combo.setValue("Swedish (sv_SE)"));
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(NodeOrientation.LEFT_TO_RIGHT, root.getNodeOrientation());
+
+        robot.interact(() -> combo.setValue("Japanese (ja_JP)"));
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(NodeOrientation.LEFT_TO_RIGHT, root.getNodeOrientation());
+    }
+
+    @Test
+    @DisplayName("Arabic mode converts western digits to Arabic-Indic digits")
+    void testArabicDigitConversion(FxRobot robot) {
+        ComboBox<String> combo = robot.lookup("#languageCombo").queryComboBox();
+        robot.interact(() -> combo.setValue("Arabic (ar_SA)"));
+        WaitForAsyncUtils.waitForFxEvents();
+
+        VBox itemsPanel = robot.lookup("#itemsPanel").queryAs(VBox.class);
+        HBox firstRow = (HBox) itemsPanel.getChildren().get(0);
+
+        TextField priceField = null;
+        for (var node : firstRow.getChildren()) {
+            if (node instanceof TextField tf) {
+                priceField = tf;
+                break;
+            }
+        }
+        assertNotNull(priceField);
+
+        robot.clickOn(priceField);
+        robot.type(KeyCode.DIGIT1);
+        robot.type(KeyCode.DIGIT2);
+        robot.type(KeyCode.DIGIT3);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Should now contain Arabic-Indic numerals after controller normalization
+        String value = priceField.getText();
+        assertTrue(value.matches(".*[٠-٩].*"), "Expected Arabic digits in field, got: " + value);
+    }
+
+    @Test
+    @DisplayName("Invalid number paths are handled (price listener, qty listener, total update)")
+    void testInvalidNumberBranches(FxRobot robot) {
+        VBox itemsPanel = robot.lookup("#itemsPanel").queryAs(VBox.class);
+        HBox firstRow = (HBox) itemsPanel.getChildren().get(0);
+
+        TextField priceField = null;
+        Spinner<?> qtySpinner = null;
+        for (var node : firstRow.getChildren()) {
+            if (node instanceof TextField tf) priceField = tf;
+            if (node instanceof Spinner<?> sp) qtySpinner = sp;
+        }
+
+        assertNotNull(priceField);
+        assertNotNull(qtySpinner);
+
+        // Triggers NumberFormatException in price listener catch (line ~242)
+        robot.clickOn(priceField).write("abc");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Triggers NumberFormatException in quantity listener catch (line ~255)
+        robot.clickOn(qtySpinner);
+        robot.type(KeyCode.UP);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Triggers invalid parse path in updateTotalCost loop catch (line ~291)
+        robot.clickOn("#btnCalculate");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Close success alert if shown
+        robot.type(KeyCode.ENTER);
+        WaitForAsyncUtils.waitForFxEvents();
+    }
+
+    @Test
+    @DisplayName("Calculate executes alert flow and clear still works")
+    void testCalculateFlowCoversAlertAndClear(FxRobot robot) {
+        VBox itemsPanel = robot.lookup("#itemsPanel").queryAs(VBox.class);
+        HBox firstRow = (HBox) itemsPanel.getChildren().get(0);
+
+        TextField priceField = null;
+        for (var node : firstRow.getChildren()) {
+            if (node instanceof TextField tf) {
+                priceField = tf;
+                break;
+            }
+        }
+        assertNotNull(priceField);
+
+        robot.clickOn(priceField).eraseText(20).write("12.5");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        robot.clickOn("#btnCalculate");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // showAlert(...) uses showAndWait(); press Enter to close dialog
+        robot.type(KeyCode.ENTER);
+        WaitForAsyncUtils.waitForFxEvents();
+
+        robot.clickOn("#btnClear");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Label totalCost = robot.lookup("#totalCostLabel").queryAs(Label.class);
+        assertNotNull(totalCost.getText());
+        assertFalse(totalCost.getText().isBlank());
+    }
+
+    @Test
+    @DisplayName("Text direction flips back from Arabic RTL to English LTR")
+    void testDirectionFlipBothWays(FxRobot robot) {
+        ComboBox<String> combo = robot.lookup("#languageCombo").queryComboBox();
+        BorderPane root = robot.lookup("#rootVBox").queryAs(BorderPane.class);
+
+        robot.interact(() -> combo.setValue("Arabic (ar_SA)"));
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(NodeOrientation.RIGHT_TO_LEFT, root.getNodeOrientation());
+
+        robot.interact(() -> combo.setValue("English (en_US)"));
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(NodeOrientation.LEFT_TO_RIGHT, root.getNodeOrientation());
+    }
+
 }
