@@ -127,9 +127,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/ShoppingCartController.class</exclude>
-                                <exclude>**/ShoppingCartApp.class</exclude>
-
+                                <exclude>**/CartService.class</exclude>
                             </excludes>
 
                         </configuration>

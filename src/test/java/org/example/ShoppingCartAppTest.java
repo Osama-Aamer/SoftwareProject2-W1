@@ -11,7 +11,7 @@ import org.testfx.framework.junit5.Start;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-@DisplayName("ShoppingCartApp UI Smoke Tests")
+@DisplayName("ShoppingCartApp Tests")
 class ShoppingCartAppTest {
 
     @Start
@@ -20,8 +20,8 @@ class ShoppingCartAppTest {
     }
 
     @Test
-    @DisplayName("App starts and stage is visible")
-    void appStarts(FxRobot robot) {
+    @DisplayName("App starts with scene and title")
+    void testAppStarts(FxRobot robot) {
         Stage stage = (Stage) robot.window(0);
         assertNotNull(stage.getScene());
         assertTrue(stage.isShowing());
