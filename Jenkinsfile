@@ -3,19 +3,31 @@ pipeline {
 
     tools {
         maven 'Maven3'
+        jdk 'C:\\Program Files\\Java\\jdk-21'
     }
 
     environment {
+        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21'
+        SONARQUBE_SERVER = 'SonarQubeServer'
+
+        SONAR_TOKEN = credentials('SONAR_TOKEN')
+
         DOCKERHUB_CREDENTIALS_ID = 'docker-hub-cred'
         DOCKERHUB_REPO = 'osamaaa1/shopping-cart'
         DOCKER_IMAGE_TAG = 'v1'
-        GITHUB_REPO = 'https://github.com/Osama-Aamer/SoftwareProject2-W1.git'
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Osama-Aamer/SoftwareProject2-W1.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                bat 'mvn clean install -DskipTests'
             }
         }
 
@@ -28,6 +40,23 @@ pipeline {
         stage('Generate JaCoCo Coverage Report') {
             steps {
                 bat 'mvn jacoco:report'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                // withSonarQubeEnv uses the server name configured in Jenkins System settings
+                withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                    bat """
+                        \${tool 'SonarScanner'}\\bin\\sonar-scanner ^
+                        -Dsonar.projectKey=org.example:week1-swp2 ^
+                        -Dsonar.sources=src/main/java ^
+                        -Dsonar.projectName="Shopping Cart GUI" ^
+                        -Dsonar.host.url=http://localhost:9000 ^
+                        -Dsonar.login=${SONAR_TOKEN} ^
+                        -Dsonar.java.binaries=target/classes
+                    """
+                }
             }
         }
 
@@ -59,13 +88,8 @@ pipeline {
 
     post {
         always {
+            // Publishes the results of your unit tests in the Jenkins UI
             junit 'target/surefire-reports/*.xml'
-        }
-        success {
-            echo 'Pipeline succeeded! Docker image pushed to Docker Hub.'
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
