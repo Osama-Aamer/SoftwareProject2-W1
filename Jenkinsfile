@@ -3,13 +3,12 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'C:\\Program Files\\Java\\jdk-21'
     }
 
     environment {
         PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
         JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21'
-        SONARQUBE_SERVER = 'SonarQubeServer'
+        SONARQUBE_SERVER = 'SonarQube Server'
 
         SONAR_TOKEN = credentials('SONAR_TOKEN')
 
@@ -53,7 +52,7 @@ pipeline {
                         -Dsonar.sources=src/main/java ^
                         -Dsonar.projectName="Shopping Cart GUI" ^
                         -Dsonar.host.url=http://localhost:9000 ^
-                        -Dsonar.login=${SONAR_TOKEN} ^
+                        -Dsonar.token=${SONAR_TOKEN} ^
                         -Dsonar.java.binaries=target/classes
                     """
                 }
