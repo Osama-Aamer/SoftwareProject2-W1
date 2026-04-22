@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
-        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21'
+        JAVA_HOME = 'C:\\Users\\pc\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.6.7-hotspot'
         SONARQUBE_SERVER = 'SonarQube Server'
 
         SONAR_TOKEN = credentials('SONAR_TOKEN')
@@ -88,7 +88,7 @@ pipeline {
     post {
         always {
             // Publishes the results of your unit tests in the Jenkins UI
-            junit 'target/surefire-reports/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         }
     }
 }
