@@ -44,16 +44,15 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                // withSonarQubeEnv uses the server name configured in Jenkins System settings
-                withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                // withSonarQubeEnv automatically injects SONAR_HOST_URL and SONAR_AUTH_TOKEN
+                withSonarQubeEnv('SonarQube Server') {
                     bat """
-                        \${tool 'SonarScanner'}\\bin\\sonar-scanner ^
+                        ${tool 'SonarScanner'}\\bin\\sonar-scanner ^
                         -Dsonar.projectKey=org.example:week1-swp2 ^
                         -Dsonar.sources=src/main/java ^
                         -Dsonar.projectName="Shopping Cart GUI" ^
-                        -Dsonar.host.url=http://localhost:9000 ^
-                        -Dsonar.token=${SONAR_TOKEN} ^
-                        -Dsonar.java.binaries=target/classes
+                        -Dsonar.java.binaries=target/classes ^
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
                     """
                 }
             }
