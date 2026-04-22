@@ -46,14 +46,7 @@ pipeline {
             steps {
                 // withSonarQubeEnv automatically injects SONAR_HOST_URL and SONAR_AUTH_TOKEN
                 withSonarQubeEnv('SonarQube Server') {
-                    bat """
-                        ${tool 'SonarScanner'}\\bin\\sonar-scanner ^
-                        -Dsonar.projectKey=org.example:week1-swp2 ^
-                        -Dsonar.sources=src/main/java ^
-                        -Dsonar.projectName="Shopping Cart GUI" ^
-                        -Dsonar.java.binaries=target/classes ^
-                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-                    """
+                    bat 'mvn sonar:sonar -Dsonar.projectKey=org.example:week1-swp2 -Dsonar.projectName="Shopping Cart GUI" -Dsonar.java.binaries=target/classes -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
                 }
             }
         }

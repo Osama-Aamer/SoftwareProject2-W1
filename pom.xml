@@ -145,6 +145,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.1</version>
             </plugin>
+
+            <!-- Sonar Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version>
+            </plugin>
+
         </plugins>
     </build>
 </project>
